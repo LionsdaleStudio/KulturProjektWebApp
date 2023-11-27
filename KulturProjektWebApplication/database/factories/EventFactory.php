@@ -16,8 +16,14 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
+        static $id = 1;
         return [
-            //
+            'name' => 'Test Event - ' . $id++,
+            'start' => fake()->dateTimeBetween('-1 week', '+1 week'),
+            'end' => fake()->dateTimeBetween('+1 week', '+2 week'),
+            'shortDescription' => fake()->sentences(3, true),
+            'longDescription' =>fake()->paragraphs(2, true),
+            'thumbnail' => 'TN_placeholder.png'
         ];
     }
 }
