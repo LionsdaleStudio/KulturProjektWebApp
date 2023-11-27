@@ -1,0 +1,25 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #464a4e;
+background: linear-gradient(90deg,#464a4e 0%, #212529 80%);
+background: -webkit-linear-gradient(90deg,#464a4e 0%, #212529 80%);
+background: -moz-linear-gradient(90deg,#464a4e 0%, #212529 80%);
+}
+
+#content {
+    height: 100%;
+}
+
+#background-video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -100;
+}
