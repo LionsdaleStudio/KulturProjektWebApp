@@ -30,7 +30,27 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        Event::create($request->all())->save();
+
+        
+        /* 
+            Ha nincsen fájl és minden adatot menteni akarok a requestből úgy ahogy van
+            akkor röviden elég ennyi, a validálás után.
+            Event::create($request->all())->save(); 
+        */
+
+        /* Ha fájlt is akarok feltölteni, akkor előbb feltöltöm
+            Majd utána megcsinálom a példányt és elmentem. */
+        $request->thumbnail->storeAs(
+            'event_thumbnails',
+            'Event_Img_' .$request->name,
+            'public'
+        );
+
+        $fileName = 'Event_Img_' .$request->name;
+
+        $event = Event::create($request->all());
+        $event->thumbnail = $fileName;
+        $event->save();
 
         return back()->with('message', 'Event created successfully.');
     }
@@ -48,7 +68,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('events.edit', ['esemeny' => $event]);
     }
 
     /**
@@ -56,7 +76,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->update($request->all());
     }
 
     /**

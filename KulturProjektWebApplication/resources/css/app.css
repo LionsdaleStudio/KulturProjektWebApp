@@ -23,3 +23,11 @@ body {
     object-fit: cover;
     z-index: -100;
 }
+
+.event-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 150px !important;
+
+
+}

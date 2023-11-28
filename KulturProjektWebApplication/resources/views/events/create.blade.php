@@ -49,14 +49,14 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control">
+                                    <input type="text" name="name" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{old('name')}}">
                                     @error('name')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="start" class="form-label">Event Start</label>
-                                    <input type="datetime-local" name="start" id="start" class="form-control">
+                                    <input type="datetime-local" name="start" id="start" class="form-control @if($errors->has('start')) is-invalid @endif" value="{{old('start')}}">
                                     @error('start')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
@@ -64,21 +64,21 @@
                                 <div class="mb-3">
                                     <label for="shortDescription" class="form-label">Short Description</label>
                                     <input type="text" name="shortDescription" id="shortDescription"
-                                        class="form-control">
+                                        class="form-control @if($errors->has('shortDescription')) is-invalid @endif" value="{{old('shortDescription')}}">
                                     @error('shortDescription')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="longDescription" class="form-label">Long Description</label>
-                                    <input type="text" name="longDescription" id="longDescription" class="form-control">
+                                    <input type="text" name="longDescription" id="longDescription" class="form-control @if($errors->has('longDescription')) is-invalid @endif" value="{{old('longDescription')}}">
                                     @error('longDescription')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="mb-5">
                                     <label for="thumbnail" class="form-label">Event Image</label>
-                                    <input type="file" name="thumbnail" id="thumbnail" class="form-control">
+                                    <input type="file" name="thumbnail" id="thumbnail" class="form-control @if($errors->has('thumbnail')) is-invalid @endif">
                                     @error('thumbnail')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
