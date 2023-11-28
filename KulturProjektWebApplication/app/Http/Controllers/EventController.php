@@ -22,7 +22,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+       return view('events.create');
     }
 
     /**
@@ -30,7 +30,9 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        Event::create($request->all())->save();
+
+        return back()->with('message', 'Event created successfully.');
     }
 
     /**

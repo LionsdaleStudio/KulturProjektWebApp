@@ -33,7 +33,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 |-------------------------------------------------------------------------- 
 */
 
-Route::get('/events', [EventController::class, 'index'])->name('event.index');
+Route::resource('/events', EventController::class);
 
 
 

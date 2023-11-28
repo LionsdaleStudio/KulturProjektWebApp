@@ -5,9 +5,9 @@ html {
 
 body {
     background: #464a4e;
-background: linear-gradient(90deg,#464a4e 0%, #212529 80%);
-background: -webkit-linear-gradient(90deg,#464a4e 0%, #212529 80%);
-background: -moz-linear-gradient(90deg,#464a4e 0%, #212529 80%);
+    background: linear-gradient(90deg, #464a4e 0%, #212529 80%);
+    background: -webkit-linear-gradient(90deg, #464a4e 0%, #212529 80%);
+    background: -moz-linear-gradient(90deg, #464a4e 0%, #212529 80%);
 }
 
 #content {
