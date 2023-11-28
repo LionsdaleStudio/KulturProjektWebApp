@@ -56,6 +56,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('event.index')}}">Events</a>
+                                    <hr>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -73,7 +75,7 @@
             </div>
         </nav>
 
-        <main class="py-4" id="content">
+        <main class="py-4 container" id="content">
             @yield('content') {{-- Ezt lehet kiegészíteni --}}
         </main>
     </div>
