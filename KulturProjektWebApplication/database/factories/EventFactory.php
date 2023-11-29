@@ -22,7 +22,7 @@ class EventFactory extends Factory
             'start' => fake()->dateTimeBetween('-1 week', '+1 week'),
             'end' => fake()->dateTimeBetween('+1 week', '+2 week'),
             'shortDescription' => fake()->sentences(3, true),
-            'longDescription' =>fake()->paragraphs(2, true),
+            'longDescription' =>fake()->paragraphs(23, true),
             'thumbnail' => 'TN_placeholder.png'
         ];
     }
