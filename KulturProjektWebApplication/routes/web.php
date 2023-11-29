@@ -34,7 +34,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 */
 
 Route::resource('/events', EventController::class);
-
+Route::get('/events_deleted', [EventController::class, 'showDeleted'])->name('events.showDeleted');
+Route::put('/events/restore/{event}', [EventController::class, 'restore'])->name('events.restore')->withTrashed();
 
 
 

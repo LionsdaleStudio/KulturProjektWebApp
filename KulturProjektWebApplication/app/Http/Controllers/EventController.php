@@ -60,7 +60,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('events.show', ['esemeny' => $event]);
     }
 
     /**
@@ -76,7 +76,25 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
+
         $event->update($request->all());
+
+        if ($request->thumbnail != null) {
+            //Fájlnév kimentése
+            $fileName = 'Event_Img_' .$request->name;
+            $event->thumbnail=$fileName;
+
+            //A fájl feltöltése
+            $request->thumbnail->storeAs(
+                'event_thumbnails',
+                'Event_Img_' .$request->name,
+                'public'
+            );
+            $event->update();
+        }
+
+        return redirect()->route('events.index')->with('message', 'Event Updated Successfully');
+        
     }
 
     /**
@@ -84,6 +102,19 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+        return redirect()->route('events.index')->with('message', $event->name.' was deleted Successfully');
+    }
+
+    /* Saját metódusok */
+
+    public function showDeleted(){
+        $events = Event::onlyTrashed()->get();
+        return view('events.show_deleted', ['esemenyek' => $events]);
+    }
+
+    public function restore(Event $event) {
+        $event->restore();
+        return back()->with('message', 'Event was restored successfully.');
     }
 }
