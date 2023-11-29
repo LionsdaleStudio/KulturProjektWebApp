@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
@@ -37,5 +38,11 @@ Route::resource('/events', EventController::class);
 Route::get('/events_deleted', [EventController::class, 'showDeleted'])->name('events.showDeleted');
 Route::put('/events/restore/{event}', [EventController::class, 'restore'])->name('events.restore')->withTrashed();
 
+/* 
+|--------------------------------------------------------------------------
+| Review routes
+|-------------------------------------------------------------------------- 
+*/
 
+Route::resource('/reviews', ReviewController::class);
 
