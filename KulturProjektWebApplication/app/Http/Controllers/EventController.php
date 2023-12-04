@@ -103,13 +103,14 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->delete();
-        return redirect()->route('events.index')->with('message', $event->name.' was deleted Successfully');
+        return back()->with('message', $event->name.' was deleted Successfully');
     }
 
     /* Saját metódusok */
 
     public function showDeleted(){
         $events = Event::onlyTrashed()->get();
+        $events = Event::withTrashed()->get();
         return view('events.show_deleted', ['esemenyek' => $events]);
     }
 

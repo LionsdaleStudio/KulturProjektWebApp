@@ -39,13 +39,33 @@
                                 <td>{{ $item->start }}</td>
                                 <td>
                                     <div class="row w-40">
+                                        @if($item->trashed() == false)
                                         <div class="col">
+                                            <form action="{{ route('events.show', $item) }}" method="GET">
+                                                <button type="submit" class="btn btn-primary">Show</button>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <form action="{{ route('events.edit', $item) }}" method="GET">
+                                                <button type="submit" class="btn btn-warning">Edit</button>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <form action="{{ route('events.destroy', $item) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                        @else
+                                        <div class="col text-center">
                                             <form action="{{ route('events.restore', $item) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-info">Restore Event</button>
                                             </form>
-                                        </div>                                       
+                                        </div>   
+                                        @endif                                    
                                     </div>
                                 </td>
                             </tr>
