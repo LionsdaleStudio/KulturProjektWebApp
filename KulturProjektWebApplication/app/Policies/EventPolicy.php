@@ -18,7 +18,7 @@ class EventPolicy
             case 'admin':
                 return true;
             case 'creator':
-                return false;
+                return true;
             case 'customer':
                 return false;
             default:
@@ -32,8 +32,7 @@ class EventPolicy
     public function view(User $user, Event $event): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
+
             case 'admin':
                 return true;
             case 'creator':
@@ -51,8 +50,7 @@ class EventPolicy
     public function create(User $user): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
+
             case 'admin':
                 return true;
             case 'creator':
@@ -70,8 +68,7 @@ class EventPolicy
     public function update(User $user, Event $event): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
+
             case 'admin':
                 return true;
             case 'creator':
@@ -89,8 +86,6 @@ class EventPolicy
     public function delete(User $user, Event $event): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
             case 'admin':
                 return true;
             case 'creator':
@@ -108,8 +103,6 @@ class EventPolicy
     public function restore(User $user, Event $event): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
             case 'admin':
                 return true;
             case 'creator':
@@ -127,8 +120,6 @@ class EventPolicy
     public function forceDelete(User $user, Event $event): bool
     {
         switch (auth()->user()->role->slug) {
-            case 'dev':
-                return true;
             case 'admin':
                 return false;
             case 'creator':
@@ -142,8 +133,8 @@ class EventPolicy
 
     public function before()
     {
-        if(auth()->user()->role->slug === 'dev' ) {
+        if (auth()->user()->role->slug === 'dev') {
             return true;
-        }  
+        }
     }
 }

@@ -1,0 +1,50 @@
+LARAVEL KEZDÉS LÉPÉSEK:
+
+1. composer create-project laravel/laravel [name]
+2. Open created folder / cd [name]
+3. composer require laravel/ui
+4. php artisan ui bootstrap --auth
+5. npm install
+6. php artisan storage:link
+	6.1 config/app beállítása  
+7. .env file beállítása (mysql adatok, [DBname]
+8. php artisan serve
+9. npm run dev
+
+Modell [AUTO] létrehozása és dolgai
+
+1. php artisan make:model Auto --all
+2. Database/migrations create_autos_table kiegészítése
+3. Database/factory AutoFactory kiegészítése
+4. Databse/seeders AutoSeeder kiegészítése
+5. DatabaseSeederben a seederek meghívása
+	$this->call([AutoSeeder:class, stb.]);
+6. php artisan migrate:fresh --seed
+7. App/Model/Auto -> use SoftDeletes; protected $fillable = ['oszlopok'];
+	7.1 Modell kapcsolatok létrehozása
+8. routes/web.php -> Route::resource('/auto', \App\Http\Controllers\AutoController::class);
+9. php artisan optimize;
+10. resources/views/autos/index, create, edit, show, stb. stb.
+	10+1. layouts/app linkek {{route('NEV')}}
+11. App/http/controllers kitöltése (CRUD)
+	11+1 Store/UpdateRequest validálás
+12. (10-11 fejlesztése párhuzamosan).
+13. Observer fejlesztése
+	- php artisan make:observer [Model]Obeserver --model=[Modelneve]
+	- Funkciók kitöltése
+	- EventServiceProvider, boot() Observer meghívása
+14. Policy fejlesztése
+	- Funkicók kitöltése,
+	- AuthServiceProvider policies hívása
+	- Használata:
+		- C: $this->authorize('viewAny', Model::class);
+		- FrontEnd: @can('create', \App\Models\Modelneve) @endcan
+15. GATE fejlesztése
+	- AuthServiceProvider boot() funkcióban
+
+	 Gate::define("eventHandler", function(User $user) {
+            return $user->role->slug == "dev"; 
+        });
+	-Használata:
+	C:         /* Gate::allows('eventHandler', auth()->user()) ? '' : abort(403); */
+	Fe: @can('eventHandler', Auth::user())
