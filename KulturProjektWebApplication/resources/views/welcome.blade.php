@@ -26,7 +26,7 @@
                         </div>
                         <div class="text-end">
                             <form action="{{ route('events.show', $item) }}" method="GET">
-                                <button type="submit" class="btn btn-warning">Submit</button>
+                                <button type="submit" class="btn btn-warning">Details</button>
                             </form>
                         </div>
                     </div>
