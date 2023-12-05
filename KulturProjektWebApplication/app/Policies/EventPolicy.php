@@ -47,18 +47,18 @@ class EventPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
         switch (auth()->user()->role->slug) {
 
             case 'admin':
-                return true;
+                return Response::allow('Yaaaay!');
             case 'creator':
-                return false;
+                return Response::denyWithStatus(418);
             case 'customer':
-                return false;
+                return Response::deny("Takarodj vissza vásárolni!");;
             default:
-                return false;
+                return Response::deny("How the f@&# are you here, moron? ");;
         }
     }
 

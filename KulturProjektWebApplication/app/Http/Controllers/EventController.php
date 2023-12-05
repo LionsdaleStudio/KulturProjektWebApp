@@ -30,7 +30,9 @@ class EventController extends Controller
      */
     public function create()
     {
-       return view('events.create');
+        $this->authorize('create', Event::class);
+
+        return view('events.create');
     }
 
     /**
@@ -39,7 +41,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request)
     {
 
-        
+
         /* 
             Ha nincsen fájl és minden adatot menteni akarok a requestből úgy ahogy van
             akkor röviden elég ennyi, a validálás után.
@@ -50,11 +52,11 @@ class EventController extends Controller
             Majd utána megcsinálom a példányt és elmentem. */
         $request->thumbnail->storeAs(
             'event_thumbnails',
-            'Event_Img_' .$request->name,
+            'Event_Img_' . $request->name,
             'public'
         );
 
-        $fileName = 'Event_Img_' .$request->name;
+        $fileName = 'Event_Img_' . $request->name;
 
         $event = Event::create($request->all());
         $event->thumbnail = $fileName;
@@ -89,20 +91,20 @@ class EventController extends Controller
 
         if ($request->thumbnail != null) {
             //Fájlnév kimentése
-            $fileName = 'Event_Img_' .$request->name;
-            $event->thumbnail=$fileName;
+            $fileName = 'Event_Img_' . $request->name;
+            $event->thumbnail = $fileName;
 
             //A fájl feltöltése
             $request->thumbnail->storeAs(
                 'event_thumbnails',
-                'Event_Img_' .$request->name,
+                'Event_Img_' . $request->name,
                 'public'
             );
             $event->update();
         }
 
         return redirect()->route('events.index')->with('message', 'Event Updated Successfully');
-        
+
     }
 
     /**
@@ -111,18 +113,20 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->delete();
-        return back()->with('message', $event->name.' was deleted Successfully');
+        return back()->with('message', $event->name . ' was deleted Successfully');
     }
 
     /* Saját metódusok */
 
-    public function showDeleted(){
+    public function showDeleted()
+    {
         $events = Event::onlyTrashed()->get();
         $events = Event::withTrashed()->get();
         return view('events.show_deleted', ['esemenyek' => $events]);
     }
 
-    public function restore(Event $event) {
+    public function restore(Event $event)
+    {
         $event->restore();
         return back()->with('message', 'Event was restored successfully.');
     }
