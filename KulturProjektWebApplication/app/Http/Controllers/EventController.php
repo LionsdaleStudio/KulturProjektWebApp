@@ -40,6 +40,7 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
+        $this->authorize('create', Event::class);
 
 
         /* 
@@ -70,6 +71,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        $this->authorize('view', Event::class);
+
         return view('events.show', ['esemeny' => $event]);
     }
 
@@ -78,6 +81,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+        $this->authorize('update', Event::class);
+
         return view('events.edit', ['esemeny' => $event]);
     }
 
@@ -86,6 +91,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
+        $this->authorize('update', Event::class);
 
         $event->update($request->all());
 
@@ -112,6 +118,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        $this->authorize('delete', Event::class);
+
         $event->delete();
         return back()->with('message', $event->name . ' was deleted Successfully');
     }
@@ -120,6 +128,8 @@ class EventController extends Controller
 
     public function showDeleted()
     {
+        $this->authorize('restore', Event::class);
+
         $events = Event::onlyTrashed()->get();
         $events = Event::withTrashed()->get();
         return view('events.show_deleted', ['esemenyek' => $events]);
@@ -127,6 +137,8 @@ class EventController extends Controller
 
     public function restore(Event $event)
     {
+        $this->authorize('restore', Event::class);
+
         $event->restore();
         return back()->with('message', 'Event was restored successfully.');
     }

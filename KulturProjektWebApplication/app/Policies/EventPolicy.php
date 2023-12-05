@@ -29,7 +29,7 @@ class EventPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Event $event): bool
+    public function view(User $user): bool
     {
         switch (auth()->user()->role->slug) {
 
@@ -56,16 +56,18 @@ class EventPolicy
             case 'creator':
                 return Response::denyWithStatus(418);
             case 'customer':
-                return Response::deny("Takarodj vissza vásárolni!");;
+                return Response::deny("Takarodj vissza vásárolni!");
+                ;
             default:
-                return Response::deny("How the f@&# are you here, moron? ");;
+                return Response::deny("How the f@&# are you here, moron? ");
+                ;
         }
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Event $event): bool
+    public function update(User $user): bool
     {
         switch (auth()->user()->role->slug) {
 
@@ -83,41 +85,41 @@ class EventPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Event $event): bool
+    public function delete(User $user): Response
     {
         switch (auth()->user()->role->slug) {
             case 'admin':
-                return true;
+                return Response::allow();
             case 'creator':
-                return false;
+                return Response::denyWithStatus(404);
             case 'customer':
-                return false;
+                return Response::denyWithStatus(404);
             default:
-                return false;
+            return Response::denyWithStatus(404);
         }
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Event $event): bool
+    public function restore(User $user): Response
     {
         switch (auth()->user()->role->slug) {
             case 'admin':
-                return true;
+                return Response::allow();
             case 'creator':
-                return false;
+                return Response::denyWithStatus(218);
             case 'customer':
-                return false;
+                return Response::denyWithStatus(218);
             default:
-                return false;
+                return Response::denyWithStatus(218);
         }
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Event $event): bool
+    public function forceDelete(User $user): bool
     {
         switch (auth()->user()->role->slug) {
             case 'admin':

@@ -23,10 +23,10 @@
 </head>
 
 <body>
-    <p><b>ERROR: 418.</b> <br>Fortunatelly I’m a teapot. <br> I don't have to deal with you.</p>
+    <p><b>ERROR: 418.</b> <br>Fortunatelly I identify as a teapot. <br> I don't have to deal with you.</p>
     <p>The requested entity body is short and stout. <ins>Tip me over and pour me out.</ins></p>
     <div id="teaset">
-        <div id="teabot" class="" style="transform: rotate(0deg);"></div>
+        <div id="teabot" class="" style="transform: rotate(0deg);" ></div>
         <div id="teacup"></div>
     </div>
     <script src="//www.gstatic.com/teapot/teapot.min.js" nonce=""></script>
