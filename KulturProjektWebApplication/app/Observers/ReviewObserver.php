@@ -11,7 +11,7 @@ class ReviewObserver
      */
     public function creating(Review $review): void
     {
-        $review->created_by = auth()->user()->id;
+        $review->created_by = auth()->hasUser() ? auth()->user()->id : 11;
     }
 
     /**

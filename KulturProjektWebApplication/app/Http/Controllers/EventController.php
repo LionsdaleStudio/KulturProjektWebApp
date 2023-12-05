@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -13,6 +14,13 @@ class EventController extends Controller
      */
     public function index()
     {
+        //Ha GATE-t használsz engedélyezésre
+        /* Gate::allows('eventHandler', auth()->user()) ? '' : abort(403); */
+
+        //Ha policyt használsz (as you should)
+        $this->authorize('viewAny', Event::class);
+
+
         $events = Event::all();
         return view('events.index', ['esemenyek' => $events]);
     }

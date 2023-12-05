@@ -13,7 +13,17 @@ class EventPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+
+            case 'admin':
+                return true;
+            case 'creator':
+                return false;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -21,7 +31,18 @@ class EventPolicy
      */
     public function view(User $user, Event $event): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return true;
+            case 'creator':
+                return true;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -29,7 +50,18 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return true;
+            case 'creator':
+                return false;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -37,7 +69,18 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return true;
+            case 'creator':
+                return true;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -45,7 +88,18 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return true;
+            case 'creator':
+                return false;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -53,7 +107,18 @@ class EventPolicy
      */
     public function restore(User $user, Event $event): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return true;
+            case 'creator':
+                return false;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -61,6 +126,24 @@ class EventPolicy
      */
     public function forceDelete(User $user, Event $event): bool
     {
-        //
+        switch (auth()->user()->role->slug) {
+            case 'dev':
+                return true;
+            case 'admin':
+                return false;
+            case 'creator':
+                return false;
+            case 'customer':
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    public function before()
+    {
+        if(auth()->user()->role->slug === 'dev' ) {
+            return true;
+        }  
     }
 }

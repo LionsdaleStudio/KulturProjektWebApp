@@ -11,7 +11,7 @@ class EventObserver
      */
     public function creating(Event $event): void
     {
-        $creator = auth()->user()->id;
+        $creator = auth()->hasUser() ? auth()->user()->id : 11;
         $event->created_by = $creator;
     }
 
