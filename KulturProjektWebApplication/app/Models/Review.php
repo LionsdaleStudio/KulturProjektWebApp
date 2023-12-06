@@ -13,6 +13,13 @@ class Review extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'user_id',
+        'event_id',
+        'review',
+        'rating'
+    ];
+
     public function event():BelongsTo {
         return $this->belongsTo(Event::class);
     }

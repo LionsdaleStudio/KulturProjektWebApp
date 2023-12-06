@@ -24,7 +24,12 @@
             <div class="card p-4">
                 <div class="card-body">
                     <h4 class="card-title">Review:</h4>
-                    <form …>
+                    
+                    @include('includes.formResponse')
+
+                    <form action="{{route('reviews.store')}}" method="POST">
+                        @method('POST')
+                        @csrf
                         <div>
                             <span><i id="1" class="fa-regular fa-star rating-star" onmouseover="StarMouseHover(1)"
                                     onmouseout="StarMouseLeave(1)" onmousedown="StarMouseClick(1)"></i></span>
@@ -43,6 +48,7 @@
                             <trix-editor input="editor"></trix-editor>
                         </div>
                         <div class="mt-2 text-center">
+                            <input type="hidden" name="event_id" value="{{$esemeny->id}}">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -54,7 +60,7 @@
     <div class="row mt-4">
         <div class="col-12">
             <div class="card mb-3">
-                @foreach ($esemeny->reviews as $item)
+                @foreach ($esemeny->reviews->sortByDesc('id') as $item)
                     {{-- Review --}}
                     <div class="row g-0 px-4 py-2">
                         <div class="col-md-2 text-center d-flex align-items-center justify-content-center ">

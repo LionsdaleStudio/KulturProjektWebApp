@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
@@ -33,7 +34,15 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        $review = Review::create([
+            'user_id' => auth()->user()->id,
+            'event_id' => $request->event_id,
+            'review' => $request->review,
+            'rating' => $request->rating,
+        ]);
+        
+        $review->save();
+        return back()->with('message', 'Review added. Thank you for your input.');
     }
 
     /**
