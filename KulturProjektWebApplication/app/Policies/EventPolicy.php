@@ -38,7 +38,7 @@ class EventPolicy
             case 'creator':
                 return true;
             case 'customer':
-                return false;
+                return true;
             default:
                 return false;
         }

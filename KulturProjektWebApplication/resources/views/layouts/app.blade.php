@@ -17,6 +17,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    {{--  --}}
+{{--     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+ --}}
 
 </head>
 
@@ -68,7 +71,9 @@
                                     @can('create', \App\Models\Event::class)
                                         <a class="dropdown-item" href="{{ route('events.create') }}">Events Create</a>
                                     @endcan
-                                    <a class="dropdown-item" href="{{ route('events.showDeleted') }}">Events Deleted</a>
+                                    @can('restore', \App\Models\Event::class)
+                                        <a class="dropdown-item" href="{{ route('events.showDeleted') }}">Events Deleted</a>
+                                    @endcan
                                     {{-- @endcan --}}
 
 
