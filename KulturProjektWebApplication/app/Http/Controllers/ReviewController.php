@@ -58,7 +58,7 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', ['review' => $review]);
     }
 
     /**

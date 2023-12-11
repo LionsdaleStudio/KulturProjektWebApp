@@ -40,3 +40,29 @@ body {
 .fa-star {
     color: gold !important;
 }
+
+.review-button-edit {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 0.875em;
+    font-style: italic;
+    color: rgba(33, 37, 41, 0.75);
+}
+
+.review-button-edit:hover {
+    color: gold;
+}
+
+.review-button-delete {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 0.875em;
+    font-style: italic;
+    color: rgba(33, 37, 41, 0.75);
+}
+
+.review-button-delete:hover {
+    color: crimson;
+}

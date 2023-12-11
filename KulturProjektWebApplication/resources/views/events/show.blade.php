@@ -24,10 +24,10 @@
             <div class="card p-4">
                 <div class="card-body">
                     <h4 class="card-title">Review:</h4>
-                    
+
                     @include('includes.formResponse')
 
-                    <form action="{{route('reviews.store')}}" method="POST">
+                    <form action="{{ route('reviews.store') }}" method="POST">
                         @method('POST')
                         @csrf
                         <div>
@@ -45,10 +45,10 @@
                         </div>
                         <div>
                             <input id="editor" type="hidden" name="review">
-                            <trix-editor input="editor"></trix-editor>
+                            <trix-editor input="editor" class="trix-content"></trix-editor>
                         </div>
                         <div class="mt-2 text-center">
-                            <input type="hidden" name="event_id" value="{{$esemeny->id}}">
+                            <input type="hidden" name="event_id" value="{{ $esemeny->id }}">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
@@ -76,9 +76,29 @@
                                 @endfor
                                 <span> - {{ $item->rating }} / 5</span>
                                 {{-- End rating stars --}}
-                                <p class="card-text">{{ $item->review }}</p>
+                                <p class="card-text">
+                                <div class="trix-content"> {!! $item->review !!} </div>
+                                </p>
                                 <hr>
-                                <p class="card-text fst-italic"><small class="text-muted">{{ $item->updated_at }}</small>
+                                <div class="row">
+                                    <div class="col-8 text-start">
+                                        <p class="card-text fst-italic"><small
+                                                class="text-muted">{{ $item->updated_at }}</small>
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <form action="{{route('reviews.edit', $item)}}" method="GET">
+                                            <button type="submit" class="review-button-edit">Edit</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        <form action="" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="review-button-delete">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+
                                 </p>
                             </div>
                         </div>
