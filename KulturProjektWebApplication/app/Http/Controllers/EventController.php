@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
@@ -141,5 +142,44 @@ class EventController extends Controller
 
         $event->restore();
         return back()->with('message', 'Event was restored successfully.');
+    }
+
+    public function retrieveSuggestion() {
+        $inputValue = $_POST['inputValue'];
+
+        $events = [
+            'Az operaház fantomja',
+            'Rómeó és Júlia',
+            'Macskák',
+            'Padlás',
+            'Micsoda nő',
+            'Jézus Krisztus Szupersztár',
+            'Diótörő',
+            'Spamelot'
+        ];
+
+        $hint = "";
+        $found = false; //bool
+
+        if ($inputValue !== "") {
+            $inputValue = strtolower($inputValue);
+            $len=strlen($inputValue);
+            foreach($events as $name) {
+              if (stristr($inputValue, substr($name, 0, $len))) {
+                if ($hint === "") {
+                  $hint = $name;
+                  $found = true;
+                } else {
+                  $hint .= ", $name";
+                }
+              }
+            }
+          }
+
+          if (!$found) {
+            $hint = "No suggestion";
+          }
+
+        return response()->json(array('msg'=> $hint), 200);
     }
 }

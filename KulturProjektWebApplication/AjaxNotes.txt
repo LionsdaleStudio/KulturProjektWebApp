@@ -1,0 +1,37 @@
+Jquery kell hozzá, a layoutba linkeld be.
+(Layout header, általában az a jó, ha ez az első, amit linkelsz)
+
+FRONTEND OLDALI SCRIPT
+
+//this.value az input mező értékét jelenti
+<input onchange="getSuggestion(this.value);" type="text" name="name" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{old('name')}}">
+
+<script>
+        function getSuggestion(inputData) {  //Ajax funkció neve, egy bekért paraméterrel,
+            $.ajax({                         //Ajax jquery funkció meghívása
+                type: 'POST',                //A kérés metódusa
+                url: '/retrieveSuggestion',  //A kérés URL-je.
+                data: {                      //A tovább küldött paraméterek, :-al elválasztva, {} között.
+                    '_token' : '<?php echo csrf_token() ?>', //A CSRF token, ami must have laravelnél
+                    'inputValue' : inputData    //Tovább küldött adat, amit a funkció paramétre ad (inputValue néven küldöm a szervernek a funkció inputData paraméterét (ami az input mező értéke))
+                },
+                success: function(data) {       //Siker esetén a válasz (data néven érkezik, mint paraméter)
+                    $('#responseText').html(data.msg); //Mi történjen, ha sikeres választ kapsz.
+                }
+            });
+        }
+    </script>
+
+public function retrieveSuggestion() {
+        $inputValue = $_POST['inputValue']; //ÁTKÜLDÖTT ADATOK LEKÉRÉSE ($_POST/GET['Átküldött adat neve'])
+
+        //Adjon vissza egy választ, ami JSON adatként, tömböt tartalmazva, visszaküld valamit, jelenleg msg-néven.
+        MSG a frontenden kapott válasz változó neve (data.msg)
+
+    }
+
+web.php-ban az útvonal, az AJAX kéréshez.
+    Route::post('/retrieveSuggestion', [EventController::class, 'retrieveSuggestion'])->name('RetrieveSuggestion');
+
+GYAKORLÓ FELADAT:
+A saját projektedben, Ajaxxal kérd le, hogy a regisztrációnál beírt USERNÉV foglalt-e vagy sem.

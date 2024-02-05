@@ -86,12 +86,12 @@
                                                 class="text-muted">{{ $item->updated_at }}</small>
                                     </div>
                                     <div class="col-2 text-end">
-                                        <form action="{{route('reviews.edit', $item)}}" method="GET">
+                                        <form action="{{ route('reviews.edit', $item) }}" method="GET">
                                             <button type="submit" class="review-button-edit">Edit</button>
                                         </form>
                                     </div>
                                     <div class="col-2 text-center">
-                                        <form action="" method="POST">
+                                        <form action="{{ route('reviews.destroy', $item) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="review-button-delete">Delete</button>
@@ -111,39 +111,4 @@
     </div>
 @endsection
 
-<script>
-    function StarMouseHover(id) {
-        const stars = document.getElementsByClassName('rating-star');
-        for (let i = 0; i < id; i++) {
-            stars[i].classList.remove('fa-regular');
-            stars[i].classList.add('fa-solid');
-        }
-    }
-
-    function StarMouseLeave() {
-        const stars = document.getElementsByClassName('rating-star');
-        for (let i = 0; i < stars.length; i++) {
-            if (!stars[i].classList.contains('star-clicked')) {
-                stars[i].classList.remove('fa-solid');
-                stars[i].classList.add('fa-regular');
-            }
-        }
-    }
-
-    function StarMouseClick(id) {
-        const stars = document.getElementsByClassName('rating-star');
-        for (let i = 0; i < stars.length; i++) {
-            if (i < id) {
-                stars[i].classList.remove('fa-regular');
-                stars[i].classList.add('fa-solid');
-                stars[i].classList.add('star-clicked');
-            } else {
-                stars[i].classList.remove('fa-solid');
-                stars[i].classList.add('fa-regular');
-                stars[i].classList.remove('star-clicked');
-            }
-        }
-        console.log(id);
-        document.getElementById("rating").value = id;
-    }
-</script>
+<script src="{{ asset('js/reviewScripts.js') }}"></script>

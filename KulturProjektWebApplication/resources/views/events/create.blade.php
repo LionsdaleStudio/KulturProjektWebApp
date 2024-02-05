@@ -49,7 +49,8 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{old('name')}}">
+                                    <input onchange="getSuggestion(this.value);" type="text" name="name" id="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{old('name')}}">
+                                    <small class="text-info d-none" id="responseTextHolder">Suggestion: <span id="responseText"></span></small>
                                     @error('name')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
@@ -94,4 +95,28 @@
         </div>
         <div class="col-2"></div>
     </div>
+
+
+
+    <script>
+        function getSuggestion(inputData) {
+            $.ajax({
+                type: 'POST',
+                url: '/retrieveSuggestion',
+                data: {
+                    '_token' : '<?php echo csrf_token() ?>',
+                    'inputValue' : inputData
+                },
+                success: function(data) {
+                    
+                    /* if (data.msg == 'No suggestion') {
+                        alert('Well too bad!');
+                    } */
+
+                    $('#responseTextHolder').removeClass('d-none');
+                    $('#responseText').html(data.msg);
+                }
+            });
+        }
+    </script>
 @endsection

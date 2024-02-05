@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
@@ -37,6 +39,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('/events', EventController::class);
 Route::get('/events_deleted', [EventController::class, 'showDeleted'])->name('events.showDeleted');
 Route::put('/events/restore/{event}', [EventController::class, 'restore'])->name('events.restore')->withTrashed();
+//AJAX RESPONSE
+Route::post('/retrieveSuggestion', [EventController::class, 'retrieveSuggestion'])->name('RetrieveSuggestion');
 
 /* 
 |--------------------------------------------------------------------------
@@ -45,4 +49,11 @@ Route::put('/events/restore/{event}', [EventController::class, 'restore'])->name
 */
 
 Route::resource('/reviews', ReviewController::class);
+
+/* 
+|--------------------------------------------------------------------------
+| Email routes
+|-------------------------------------------------------------------------- 
+*/
+Route::get('/sendWelcomeMail', [EmailController::class, 'sendWelcomeMail']);
 

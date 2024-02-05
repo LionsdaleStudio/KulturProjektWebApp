@@ -66,7 +66,8 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
-        //
+        $review->update($request->all());
+        return redirect()->route('events.show', $review->event_id)->with('message', 'Review updated. Thank you for your input.');
     }
 
     /**
@@ -74,6 +75,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        return redirect()->route('events.show', $review->event_id)->with('message', 'Review has been deleted. Thank you cenzorship.');
+
     }
 }

@@ -66,3 +66,11 @@ body {
 .review-button-delete:hover {
     color: crimson;
 }
+
+.trix-button-group.trix-button-group--file-tools {
+    display:none;
+}
+
+.trix-button.trix-button--icon.trix-button--icon-link {
+    display:none;
+}
