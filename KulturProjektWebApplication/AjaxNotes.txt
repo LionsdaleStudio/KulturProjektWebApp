@@ -27,7 +27,7 @@ public function retrieveSuggestion() {
 
         //Adjon vissza egy választ, ami JSON adatként, tömböt tartalmazva, visszaküld valamit, jelenleg msg-néven.
         MSG a frontenden kapott válasz változó neve (data.msg)
-
+        return response()->json(array('msg'=> 'VÁLASZ ADATOM'), 200);
     }
 
 web.php-ban az útvonal, az AJAX kéréshez.
