@@ -1,0 +1,11 @@
+Laravel kompatibilis csomag előre generáltan
+
+https://github.com/yoeunes/toastr
+
+EREDETI
+
+https://github.com/CodeSeven/toastr
+
+Eredeti toastr creator
+
+https://codeseven.github.io/toastr/demo.html

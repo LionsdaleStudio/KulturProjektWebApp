@@ -64,6 +64,8 @@ class EventController extends Controller
         $event->thumbnail = $fileName;
         $event->save();
 
+        toastr()->success('Event has been saved successfully!', 'Congrats');
+
         return back()->with('message', 'Event created successfully.');
     }
 
