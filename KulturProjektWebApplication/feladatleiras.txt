@@ -1,0 +1,68 @@
+Feladatleírás:
+
+https://codeshare.io/MkWZYn
+
+Egy olyan weboldal elkészítése, ahol a különböző, nálunk tanulható kurzusokhoz jegyzet készül, forráskóddal, feladatleírással, gyakorló feladatokkal stb. stb.
+
+0. GIT REPO LÉTREHOZÁSA
+1. Csinálj egy új laravel projektet, aminek a neve: LionsdaleCourseNotes
+2. Laravel UI és bootstrap --auth implementálása
+
+ADATBÁZIS ELKÉSZÍTÉSE
+
+3. Schools tábla létrehozása
+	- tábla, factory, seeder (csak kettőt hozz létre (Bláthy, Eötvös Lóránt Technikum), meg egy randomot)
+
+4. Autentikáció létrehozása
+	-user tábla kiegészítése és tisztázása (school_id nélkül, azt később megcsinálom
+	-user factory kiegészítése
+	-user seeder kiegészítése és 30 user létrehozása)
+4.1
+	- php artisan make:migration add_school_id_to_users_table
+
+	-$table->foreignId('shool_id')->constrained();
+
+5. Types tábla és seeder (A három amit megbeszéltünk legyen benne)
+6. Courses tábla és factory, seeder (Legyen legalább 3 normális kurzus / típus) meg mondjuk (3 random)
+7. course_user_table létrehozása 
+	(CSAK A MIGRATION-t KELL LÉTREHOZNI (Many to Many rel.) -> php artisan make:migration create_course_user_table
+	(Működése: Ha valaki rákattint egy kurzus megnézésére, akkor automatikusan bekerül ide, mielőtt megkapja a nézetet)
+	(Fő felhasználónak egy kurzus, amit megnézett, de nem fejezett be, egy amit megnézett és befejezett, egy amit nem nézett meg.)
+8. Kapcsolatok a modellek között (ELOQUENT ORM, relations)
+9. Storage linkelése
+10. Nézetek - Controllerek létrehozása, sorban.
+	- Schools (all, minden)
+	- Courses (minden, illetve minden kurzusnak egy alap oldal (frontend egységesen, rövid leírás, rövid forrás kód, és rövid FORM, ami a course user tábla booleanját állítja -> öt kérdés, ha minden jó válasz akkor mehet)
+
+
+Adatbázis:
+
+users
+username	(bs --auth)
+fullname
+email		(bs --auth)
+password	(bs --auth)
+school_id
+active		(boolean) --> Ha nincs aktív jogviszony, akkor nem léphet be.
+
+schools
+name		(Iskola neve)
+address		(Iskola címe)
+contact name	
+contact email
+
+courses
+name		(pl.: PHP basics, PHP authentication, PHP security)
+level		(beginner, intermediete, professional)
+c_route		('php.basics, php.auth') -->views/php/basics.blade.php
+type_id
+
+types
+type		(Web development, Desktop App Development, Mobile App Development, etc.)
+slug		(webdev, appdev, mobiledev)
+
+course_user_table
+user_id
+course_id
+seen		(boolean)
+completed	(boolean)
